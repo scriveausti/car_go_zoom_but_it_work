@@ -80,7 +80,7 @@ ostacle_2 = {
 }
 
 
-background_colour = 'blue'
+background_colour = 'green'
 
 
 
