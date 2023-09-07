@@ -1,6 +1,9 @@
 import pygame
 import random
 
+from enermy_car_class import enemy_car
+
+
 #imports general uses functions
 import general_functions as fun
 
@@ -17,10 +20,19 @@ from config import *
 from keybinds import *
 
 pygame.init()
-font = pygame.font.SysFont("comicsans", 40)
+font = pygame.font.SysFont("Comic Sans MS", 40)
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT),
                                  pygame.RESIZABLE)
 pygame.display.set_caption(WINDOW_NAME)
+game_icon = pygame.image.load('game_icon.png')
+pygame.display.set_icon(game_icon)
+
+
+
+enemy_1 = enemy_car()
+enemy_2 = enemy_car()
+enemy_3 = enemy_car()
+enemy_4 = enemy_car()
 
 while playing:
 	for event in pygame.event.get():
@@ -59,47 +71,50 @@ while playing:
 	pygame.draw.rect(screen, colours[GROUND_COLOUR],
 	                 [GROUND_X, GROUND_Y, GROUND_WIDTH, GROUND_HEIGHT])
 
-	for i in range(0, amount_of_objects):
-		ostacles[i]['y'] = lanes_y[ostacles[i]['lane']]
-		pygame.draw.rect(screen, colours[ostacles[i]['colour']], [
-		 ostacles[i]['x'], ostacles[i]['y'], ostacles[i]['width'],
-		 ostacles[i]['height']
-		])
 
-		ostacles[i]['x'] = ostacles[i]['x'] - (ostacle_speed *
-		                                       ostacles[i]['speed multi'])
+	
+	enemy_1.draw(screen)
+	enemy_1.movement()
 
-		if ostacles[i]['x'] < 0:
-			ostacles[i]['lane'] = (random.randint(1, amount_of_lanes))
-			ostacles[i]['x'] = SCREEN_WIDTH + random.randint(20, 200)
-			ostacles[i]['speen multi'] = (
-			 random.randint(1, max_object_speed_multi * 10) / 10)
+	enemy_2.draw(screen)
+	enemy_2.movement()
 
-		print('object speed multi ='+ str(ostacles[i]['speed multi']))
-		print('object lane =' + str(ostacles[i]['lane']))
-		print('player lane =' + str(player['lane']))
-		print('object x =' + str(ostacles[i]['x']))
-		print('player x =' + str(player['x']))
+	enemy_3.draw(screen)
+	enemy_3.movement()
 
-		print('same_lane =' + str(ostacles[i]['lane'] == player['lane']))
-		print('in hitbox =' +
-		      str(player['x'] < ostacles[i]['x'] < player['x'] + player['size_x']))
+	enemy_4.draw(screen)
+	enemy_4.movement()
+	
+	if enemy_1.x < 0:
+		enemy_1.off_screen()
+	if enemy_2.x < 0:
+		enemy_2.off_screen()
+	if enemy_3.x < 0:
+		enemy_3.off_screen()
+	if enemy_4.x < 0:
+		enemy_4.off_screen()
+		
 
-		if (ostacles[i]['lane'] == player['lane']) and (
-		  player['x'] < ostacles[i]['x'] < player['x'] + player['size_x']):
-			llama_dead = True
-			score = 0
-			print('player dead')
-		elif (player['x'] < ostacles[i]['x'] < player['x'] + player['size_x']):
-			score = score + 1
-			print('score +1')
+		#if (obstacle['lane'] == player['lane']) and (
+		  #player['x'] < obstacle['x'] < player['x'] + player['size_x']):
+			#llama_dead = True
+			#score = 0
+			#print('player dead')
+		#elif (player['x'] < obstacle['x'] < player['x'] + player['size_x']):
+			#score = score + obstacle['speed multi']
+			#print('score +1')
+		#obstacles_i = obstacles_i + 1
 
+
+	
 	#llama being drawn
 	pygame.draw.rect(
 	 screen, colours[player['colour']],
 	 [player['x'], player['y'], player['size_x'], player['size_y']])
 
-	display_score = int(score * score_multipyer)
+
+	
+	display_score = int(score) #* score_multipyer)
 
 	if display_score > highscore:
 		highscore_file = open('highscore.txt', 'w')

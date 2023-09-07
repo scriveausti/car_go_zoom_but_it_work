@@ -10,7 +10,7 @@ import pygame
 import random
 #---------------------------------------------------------------#
 
-WINDOW_NAME = " Llama Run "
+WINDOW_NAME = " car go zoom "
 SCREEN_HEIGHT = 300
 SCREEN_WIDTH = 400
 
@@ -27,8 +27,10 @@ up = False
 
 jump_loop = 0
 
-#-----------------------------#
 
+background_colour = 'green'
+
+#-----------------------------#
 #background constances and variables
 
 GROUND_COLOUR = 'dark gray'
@@ -38,14 +40,14 @@ GROUND_X = 0
 GROUND_Y = SCREEN_HEIGHT / 6
 
 #-----------------------------#
-
-amount_of_lanes = 2
+player_size_y = 20
+amount_of_lanes = 20
 lanes_y = {}
-lane_base_y = GROUND_HEIGHT / amount_of_lanes
+lane_base_y = ((GROUND_HEIGHT - player_size_y) / amount_of_lanes)
 
-for i in range(1,(amount_of_lanes+1)):
+for i in range(1, (amount_of_lanes + 1)):
 	srt_i = (i)
-	lanes_y[srt_i] = lane_base_y * i
+	lanes_y[srt_i] = ((lane_base_y) * i) + GROUND_Y
 
 print(lanes_y)
 
@@ -54,49 +56,38 @@ print(lanes_y)
 #llama constances & variables
 
 player = {
-	'x': SCREEN_WIDTH / 3,
-	'y': lanes_y[1],
-	'colour': 'blue',
-	'size_x': 40,
-	'size_y': 20,
-	'lane': 1,
-	'dead': False
+ 'x': SCREEN_WIDTH / 3,
+ 'y': lanes_y[1],
+ 'colour': 'blue',
+ 'size_x': 40,
+ 'size_y': 20,
+ 'lane': 1,
+ 'dead': False
 }
-
-
-
 
 #-----------------------------#
 
 ostacle_speed = 2
 ostacle_same_x = {}
-max_object_speed_multi = 2
+max_object_speed_multi = 3
 
-amount_of_objects = 1 #breaks everything don't change 
-# somehow incresses speed of objects idk how 
+amount_of_objects = 2
+# somehow incresses speed of objects idk how
 
 ostacle_specs = {
- 'start_x': SCREEN_WIDTH + 20,
- 'x': SCREEN_WIDTH + 20,
- 'lane': 0,
+ 'start_x': SCREEN_WIDTH - 20,
+ 'x': SCREEN_WIDTH - 20,
+ 'lane': 1,
  'width': 40,
  'height': 20,
  'colour': 'red',
  'speed multi': 1
 }
 
-ostacles = {}
+enemy_cars = []
 
-for i in range(0, amount_of_objects):
-	ostacles[i] = ostacle_specs
-	ostacles[i]['lane'] = (random.randint(1, amount_of_lanes))
-	print(ostacles[i])
-	for keys in ostacles[i]:
-		print(ostacles[i][keys])
-background_colour = 'green'
-print(ostacles)
 score = 0
-score_multipyer = ostacle_speed/ostacle_specs['width']
+
 
 highscore = 0
 
