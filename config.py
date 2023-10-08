@@ -11,14 +11,17 @@ import random
 #---------------------------------------------------------------#
 
 WINDOW_NAME = " car go zoom "
-SCREEN_HEIGHT = 300
-SCREEN_WIDTH = 400
+SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 800
 
 framerate = 60
 
 #-----------------------------#
 
 playing = True
+has_not_quit = True
+
+
 
 up_allowed = True
 down_allowed = True
@@ -27,8 +30,13 @@ up = False
 
 jump_loop = 0
 
-
 background_colour = 'green'
+
+
+error_message_colours = 'red'
+end_screen_text_colour = 'white'
+
+amount_of_car_images = 6
 
 #-----------------------------#
 #background constances and variables
@@ -41,10 +49,12 @@ GROUND_Y = SCREEN_HEIGHT / 6
 
 #-----------------------------#
 player_size_y = 20
-amount_of_lanes = 20
-lanes_y = {}
-lane_base_y = ((GROUND_HEIGHT - player_size_y) / amount_of_lanes)
+amount_of_lanes = 5
 
+lanes_y = {}
+
+lane_base_y = ((GROUND_HEIGHT ) / amount_of_lanes)
+lane_base_y = ((GROUND_HEIGHT -(lane_base_y/2) ) / amount_of_lanes)
 for i in range(1, (amount_of_lanes + 1)):
 	srt_i = (i)
 	lanes_y[srt_i] = ((lane_base_y) * i) + GROUND_Y
@@ -67,12 +77,11 @@ player = {
 
 #-----------------------------#
 
-ostacle_speed = 2
-ostacle_same_x = {}
+ostacle_speed_min = 2
 max_object_speed_multi = 3
 
-amount_of_objects = 2
-# somehow incresses speed of objects idk how
+amount_of_objects = 5 # can go up to 6 but one car will
+# be the same colour as the player 
 
 ostacle_specs = {
  'start_x': SCREEN_WIDTH - 20,
@@ -84,31 +93,35 @@ ostacle_specs = {
  'speed multi': 1
 }
 
-enemy_cars = []
+car_icons = []
+enemycars = []
+
+
+#-----------------------------#
 
 score = 0
-
-
 highscore = 0
-
 highscore_loop = True
 
-try:
-	highscore_file = open('highscore.txt', 'x')
-	highscore_file = open('highscore.txt', 'r+')
-	print('part 1 working')
-except:
-	highscore_file = open('highscore.txt', 'r+')
-	print('part 2 working')
+
 while highscore_loop:
 	try:
-		highscore = int(highscore_file.read())
-		highscore_loop = False
-		print('part 3 working')
-
+		highscore_file = open('highscore.txt', 'x')
+		highscore_file = open('highscore.txt', 'r+')
+		print('part 1 working')
 	except:
-		highscore_file.write(str(0))
-		highscore = int(highscore_file.read())
-		highscore_loop = False
-		print('part 4 working')
-highscore_file.close()
+		highscore_file = open('highscore.txt', 'r+')
+		print('part 2 working')
+	while highscore_loop:
+		try:
+			highscore = int(highscore_file.read())
+			highscore_loop = False
+			print('part 3 working')
+	
+		except:
+			highscore_file.write(str(0))
+			highscore = int(highscore_file.read())
+			highscore_loop = False
+			print('part 4 working')
+	highscore_file.close()
+

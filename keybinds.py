@@ -1,4 +1,3 @@
-
 #-----------------------------#
 #          										#
 #		keybinds to be imported		#
@@ -7,23 +6,16 @@
 #															#
 #-----------------------------#
 
-
 import pygame
 
 #-----------------------------#
 
-up_keys = [
-  pygame.K_SPACE,
-  pygame.K_w,
-  pygame.K_UP
-]
+up_keys = [pygame.K_UP]
 
 #-----------------------------#
 
 down_keys = [
-  pygame.K_s,
-  pygame.K_DOWN,
-  pygame.K_LCTRL
+ pygame.K_DOWN,
 ]
 
 #-----------------------------#

@@ -25,7 +25,8 @@ def get_screen_size():
 
 def get_middle_screen():
   """
-  This returns the x and y positions of the middle of the output screen
+  This returns the x and y positions of the middle of the output
+	screen
   outputs a tulip (middle_x, middle_y)
   """
   screen_width, screen_height = get_screen_size()
@@ -47,7 +48,7 @@ def screen_update():
 
 def none_check(input):
 	'''
-	checks if the inpu is set to None (not blank but None) \n
+	checks if the inpu is set to None (not blank but None) 
  	outputs True or False 
 	'''
 	if input == None:
@@ -70,8 +71,7 @@ def colour_none_checker(colour):
 
 def score_ui(screen,score,highscore,font):
 	"""
-	displays score and highscore
-	
+	displays score and highscore in top left and top right
 	"""
 	#draw score 
 	ui_text(screen,('score: {}'.format(score)), 'topleft',font)
@@ -83,7 +83,8 @@ def score_ui(screen,score,highscore,font):
 
 def ui_text(screen,message,corner,font):
 	'''
- 	
+ 	renders text form a corner 
+	currnt definded corners are "topright" & "topleft"
  	'''
 	txt = font.render(message, True, ui.text_colour, ui.background_colour)
 	screen_width, screen_height = get_screen_size()
@@ -94,3 +95,6 @@ def ui_text(screen,message,corner,font):
 	screen.blit(txt, text_box)
 
 #-------------------------------------------------------#
+
+
+
